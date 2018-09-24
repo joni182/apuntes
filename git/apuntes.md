@@ -100,3 +100,9 @@ Si te equivocas en algo y haces un commit este último commit se puede enmendar.
 Con `git mv <nombre> <nuevoNombre>` se pueden cambiar el nombre de los archivos desde git y automaticamente pasa los cambios al área de preparación.
 
 Idem con `git rm <archivo>`
+
+####DIRECTORIOS
+
+Git no sigue la pista a los directorios nuevos hasta que no tiene contenido ya que no controla directorios si no que controla archivos.
+
+Un truco para que siga una carpeta es crear una archivo vacio y oculto. habitualmente se usa `.gitkeep`. `touch .gitkeep` 
