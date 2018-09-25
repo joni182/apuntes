@@ -56,9 +56,9 @@ Lo mismo con `git show REFERNCIA~1`, `git show REFERNCIA~2`, `git show REFERNCIA
 `git checkout <commit>` mueve el puntero HEAD al commit en cuestión.
 Se desacopla de la rama, los commit que se hagan no tendrán repercusión sobre ninguna rama.
 
-![alt tag](Diagrama1.png)
+![diagrama1](Diagrama1.png)
 
-![alt tag](Diagrama2.png)
+![diagrama2](Diagrama2.png)
 
 
 Desde esta posicion para ver todos los commit se tendrá que usar el parámetro `--all` del comado log de git `git log --all` de lo contrario solo se verá los commit anteriores.
@@ -105,4 +105,81 @@ Idem con `git rm <archivo>`
 
 Git no sigue la pista a los directorios nuevos hasta que no tiene contenido ya que no controla directorios si no que controla archivos.
 
-Un truco para que siga una carpeta es crear una archivo vacio y oculto. habitualmente se usa `.gitkeep`. `touch .gitkeep` 
+Un truco para que siga una carpeta es crear una archivo vacio y oculto. habitualmente se usa `.gitkeep`.
+
+$`touch .gitkeep`
+
+
+##RAMAS
+
+Si nos vamos atrás en la rama master y y a partir de un estado antiguo del programa modificamos cosas y hacemos un commit ese commit se queda fuera de esa rama y se queda apuntando al commit antiguo.
+
+![diagrama3](Diagrama3.png)
+
+
+![diagrama4](Diagrama4.png)
+
+Se podria seguir haciendo commits creando una linea alternativa de commits
+
+
+![diagrama5](Diagrama5.png)
+
+Para que eso linea no se pierda podemos crear una rama que contendrán esos commits con `git checkout -b <nombre>`.
+
+![diagrama6](Diagrama6.png)
+
+se puede saltar de rama a rama con `git checkout <rama>`
+
+Una rama es un puntero, eso hace que crear una rama sea instantáneo.
+
+####GIT BRANCH
+
+`git branch` Muestra las ramas disponibles.
+
+`git branch <nombre>` Crea una rama nueva que apunta al commit en el que estás, pero no salta a la rama recién creada.
+
+`git branch -d <rama>` Borra una rama, si estas en la rama que quieres borrar antes tienes que cambiarte a otra rama.
+
+####VER COMMIT DE UNA RAMA
+
+`git diff pepe --not juan` Muestra los commit que están en juan y no están en juan.
+
+####TÉCNICAS PARA FUSIONAR RAMAS (MERGE Y REBASE)
+
+![esquema_tecnicas_fusionar](esquema1.png)
+
+![diagrama7](Diagrama7.png)
+
+Ante esta situación en la que hay dos ramas `master` y `facil` la forma más sencilla de hacer una fusión es adelantar `master` (fastforward).
+
+En este caso la rama que se va a ver afectada es la rama `master` así que nos pasamos a ella y luego usamos el comando `merge`
+
+`git checkout master`
+
+`git merge facil`
+
+Esta es la forma correcta de  desarrollar un programa. una vez master esta funcionando, creas una nueva rama y pruebas cosas alli como una nueva funcionalidad o arreglar un bug y cuando tengas esa nueva rama cumpliendo la funcionalidad que quieres ya puedes fusionarla con master de forma que en master siempre hay un programa con todas sus funcionalidades completas.
+
+En caso de no interesarte los cambios que se han producido en `facil` desde master y quieres descartarlos puedes pasarte a master y eliminar la rama fácil, los cambios quedarían fuera de ninguna rama y más tarde el recolector de basura se encargara de ellos.
+
+`git checkout master`
+
+`git branch -d facil`
+
+![diagrama8](Diagrama8.png)
+
+En este caso cuando se fusiona facil con master se usará la técnica recursive, se creará un nuevo commit especial llamado commit de merge el cual apuntará a los último commit de cada rama.
+
+
+![diagrama9](Diagrama9.png)
+
+__¡En caso de conflicto!__
+
+Un conflicto ocurre cuando en las dos ramas se tocan en el mismo archivo en la misma linea.
+En ese caso dará un error y tendrás que solucionar los conflictos de forma manual.
+
+Al abrir el archivo con conflicto git te habrá marcado el conflicto. Una vez solucionado el conflicto y con el archivo limpio se informa que el archivo esta limpio de conflicto con `git add <archivo>`
+
+Luego de eso el merge aun esta a medio hacer, así que hacemos un commit, escribimos el mensasje y tras ejecutarlo se termina el merge.
+
+Luego borramos la rama prueba, ya no nos sirve para nada.
