@@ -183,3 +183,7 @@ Al abrir el archivo con conflicto git te habrá marcado el conflicto. Una vez so
 Luego de eso el merge aun esta a medio hacer, así que hacemos un commit, escribimos el mensasje y tras ejecutarlo se termina el merge.
 
 Luego borramos la rama prueba, ya no nos sirve para nada.
+
+Hay veces que aunque se pueda solucionar el merge con un fastforward es interesante hacer un commit de merge. Cuando se hace un fastforward se pierde en la historia el hecho de que se ha hecho una fusión. Con el commit de merge queda registrado.
+
+`git merge --no-ff <rama>` De esta forma se dice no-ff(no fastforward)
