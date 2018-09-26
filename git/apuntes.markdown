@@ -1,24 +1,24 @@
 ### Git :rocket:
 
-####Inicializar repositorio
+#### Inicializar repositorio
 
 `git init`
 
-####Decirle al git que archivos incorporar a la próxima versión
+#### Decirle al git que archivos incorporar a la próxima versión
 
 Para pasar ficheros al área de preparación o stage `git add archivo` o `git add .` para incluir todos los ficheros modificados.
 
-####Crear una nueva versión
+#### Crear una nueva versión
 
 Se crea un commit `git commit -m "Carga inicial"` y deja el área de preparación o stash vacío.
 
-####Puntero master
+#### Puntero master
 Apunta al último commit de la rama.
 
-####Puntero HEAD
+#### Puntero HEAD
 Apunta al commit en el que estamos. Por defecto apunta a MASTER.
 
-####GIT LOG
+#### GIT LOG
 
 `git log` muestan el log de los commit. `git lg` muestra lo mismo pero con información más resumido.
 
@@ -26,7 +26,7 @@ Apunta al commit en el que estamos. Por defecto apunta a MASTER.
 
 `d7a2dd8 - (HEAD -> master) Cambio hola por adios (25 hours ago) <Jonatan Cerezuela>`
 
-####GIT SHOW
+#### GIT SHOW
 
 `git show` muestra commits, se puede utilizar el número de referencia del commit o `master` y `HEAD`.
 
@@ -37,7 +37,7 @@ Además se pueden utilizar ciertos símbolos para localizar commit en relación 
 Lo mismo con `git show REFERNCIA~1`, `git show REFERNCIA~2`, `git show REFERNCIA~n`
 
 
-####GIT DIFF
+#### GIT DIFF
 
 `git diff inicial..final` muestra como pasar de inicial a final.
 
@@ -51,7 +51,7 @@ Lo mismo con `git show REFERNCIA~1`, `git show REFERNCIA~2`, `git show REFERNCIA
 
 `git diff <commit>` compara el área de trabajo con el commit que tiene el identificador que se la ha pasado en le parámetro.
 
-####GIT CHECKOUT
+#### GIT CHECKOUT
 
 `git checkout <commit>` mueve el puntero HEAD al commit en cuestión.
 Se desacopla de la rama, los commit que se hagan no tendrán repercusión sobre ninguna rama.
@@ -65,13 +65,13 @@ Desde esta posicion para ver todos los commit se tendrá que usar el parámetro 
 
 Para volver a acoplar `HEAD` a la rama tendremos que hacer `checkout` a al puntero `master` y no al último commit de la rama. `git checkout master`
 
-####ANULAR UN COMMIT (REVERTIR)
+#### ANULAR UN COMMIT (REVERTIR)
 
 Se puede anular un commit revirtiendolo. Con `git revert <commit>` se creará un commit inverso al commit de esa forma se anularán los cambios realizados en el commit que queremos anular.
 
 Si en el commit que queremos anular se creaba algún archivo al hacer el revert se borrará.
 
-####GIT RESET
+#### GIT RESET
 
 Con git reset podremos hacer desaparecer el último commit, para que el area de trabajo se actualice primaro moveremos `HEAD` al commit anterior y luego `git reset HEAD --hard` o podemos hacerlo en un solo paso `git reset HEAD^ --hard`
 
@@ -79,7 +79,7 @@ El commit sigue existiendo pero se queda flotando sin estar acoplado a ninguna r
 
 Para evitar que el recolector de basura lo elimine se le puede poner una etiqueta.
 
-####GIT TAG (ETIQUETAS)
+#### GIT TAG (ETIQUETAS)
 
 `git tag` Lista de etiquetas
 
@@ -87,7 +87,7 @@ Para evitar que el recolector de basura lo elimine se le puede poner una etiquet
 
 `git tag -d <etiqueta>` Elimina la etiqueta, solo la etiqueta.
 
-####CORREGIR UN COMMIT (SOLO EL ÚLTIMO COMMIT)
+#### CORREGIR UN COMMIT (SOLO EL ÚLTIMO COMMIT)
 
 `git add .`
 
@@ -95,13 +95,13 @@ Para evitar que el recolector de basura lo elimine se le puede poner una etiquet
 
 Si te equivocas en algo y haces un commit este último commit se puede enmendar. Modificas los ficheros en cuestión, luego haces un `git add .` y despues haces `git commit --amend -m "Ahora pone antonio"` El mensaje del commit debe de ser igual al erroneo.
 
-####CAMBIAR NOMBRE A UN ARCHIVO
+#### CAMBIAR NOMBRE A UN ARCHIVO
 
 Con `git mv <nombre> <nuevoNombre>` se pueden cambiar el nombre de los archivos desde git y automaticamente pasa los cambios al área de preparación.
 
 Idem con `git rm <archivo>`
 
-####DIRECTORIOS
+#### DIRECTORIOS
 
 Git no sigue la pista a los directorios nuevos hasta que no tiene contenido ya que no controla directorios si no que controla archivos.
 
@@ -110,7 +110,7 @@ Un truco para que siga una carpeta es crear una archivo vacio y oculto. habitual
 $`touch .gitkeep`
 
 
-##RAMAS
+## RAMAS
 
 Si nos vamos atrás en la rama master y y a partir de un estado antiguo del programa modificamos cosas y hacemos un commit ese commit se queda fuera de esa rama y se queda apuntando al commit antiguo.
 
@@ -132,7 +132,7 @@ se puede saltar de rama a rama con `git checkout <rama>`
 
 Una rama es un puntero, eso hace que crear una rama sea instantáneo.
 
-####GIT BRANCH
+#### GIT BRANCH
 
 `git branch` Muestra las ramas disponibles.
 
@@ -140,11 +140,11 @@ Una rama es un puntero, eso hace que crear una rama sea instantáneo.
 
 `git branch -d <rama>` Borra una rama, si estas en la rama que quieres borrar antes tienes que cambiarte a otra rama.
 
-####VER COMMIT DE UNA RAMA
+#### VER COMMIT DE UNA RAMA
 
 `git diff pepe --not juan` Muestra los commit que están en juan y no están en juan.
 
-####TÉCNICAS PARA FUSIONAR RAMAS (MERGE Y REBASE)
+#### TÉCNICAS PARA FUSIONAR RAMAS (MERGE Y REBASE)
 
 ![esquema_tecnicas_fusionar](esquema1.png)
 
@@ -213,7 +213,7 @@ Cuando se hace el merge puede ocurrir conflictos entre commit, es cuestión de s
 Si algún commit en conflicto no te interesa rebasarlo puedes usar `git rebase --skip` y saltártelo, incluso se puede abortar el rebase y quedarte como al principio del rebase con `git rebase --abort`
 
 
-####REPOSITORIOS REMOTOS
+#### REPOSITORIOS REMOTOS
 
 ![repositorio1](repositorio1.png)
 
@@ -231,3 +231,5 @@ En el remoto se crea una nueva rama que se llama también 'master'. Con la opci�
 En local se crea un puntero `origin/master` que representa la rama `master` remota.Aunque no necesariamente esta sincronizada con `origin master` ya que otros programadores han podido ir añadiendo commits a `origin master` en remoto.
 
 `git push -u origin master`
+
+Para sincronizar local y remoto se usará `git push`. Las ramas se pushearán de forma independiente.
