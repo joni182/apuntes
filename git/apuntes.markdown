@@ -148,6 +148,8 @@ Una rama es un puntero, eso hace que crear una rama sea instantáneo.
 
 ![esquema_tecnicas_fusionar](esquema1.png)
 
+__Fast-forward__
+
 ![diagrama7](Diagrama7.png)
 
 Ante esta situación en la que hay dos ramas `master` y `facil` la forma más sencilla de hacer una fusión es adelantar `master` (fastforward).
@@ -158,9 +160,15 @@ En este caso la rama que se va a ver afectada es la rama `master` así que nos p
 
 `git merge facil`
 
+
+![diagrama7b](Diagrama7b.png)
+
+
 Esta es la forma correcta de  desarrollar un programa. una vez master esta funcionando, creas una nueva rama y pruebas cosas alli como una nueva funcionalidad o arreglar un bug y cuando tengas esa nueva rama cumpliendo la funcionalidad que quieres ya puedes fusionarla con master de forma que en master siempre hay un programa con todas sus funcionalidades completas.
 
 En caso de no interesarte los cambios que se han producido en `facil` desde master y quieres descartarlos puedes pasarte a master y eliminar la rama fácil, los cambios quedarían fuera de ninguna rama y más tarde el recolector de basura se encargara de ellos.
+
+__Recursive__
 
 `git checkout master`
 
@@ -187,3 +195,39 @@ Luego borramos la rama prueba, ya no nos sirve para nada.
 Hay veces que aunque se pueda solucionar el merge con un fastforward es interesante hacer un commit de merge. Cuando se hace un fastforward se pierde en la historia el hecho de que se ha hecho una fusión. Con el commit de merge queda registrado.
 
 `git merge --no-ff <rama>` De esta forma se dice no-ff(no fastforward)
+
+__Rebase__
+
+![diagrama10](Diagrama10.png)
+
+`git checkout master`
+
+`git rebase facil`
+
+![1](Diagrama11.png)
+
+El rebase deja mas limpia las ramas temporales pero tiene el incombeniente de que se puerde información sobre el merge que se ha realizado. Además si estas trabajando con gente puede crear conflictos al reescribir commit, por lo tanto se debe de usar solo en local, nunca en remoto.
+
+Cuando se hace el merge puede ocurrir conflictos entre commit, es cuestión de solucionarlos manualmente. Una vez solucionado se continua con el rebase con `git rebase --continue`
+
+Si algún commit en conflicto no te interesa rebasarlo puedes usar `git rebase --skip` y saltártelo, incluso se puede abortar el rebase y quedarte como al principio del rebase con `git rebase --abort`
+
+
+####REPOSITORIOS REMOTOS
+
+![repositorio1](repositorio1.png)
+
+Agregamos eun repositorio remoto ya existente vacio.
+
+`git remote add origin http://github.com/user/repositorio`
+
+Podemos ver información
+
+`git remote show origin`
+
+Ahora empujaremos todos los commits de la rama `master` al repositorio remoto.
+En el remoto se crea una nueva rama que se llama también 'master'. Con la opción `-u` se indica que la rama master en local haga seguimiento de la rama `master` del remoto. Así el sistema estará comprobando si `origin master` y `master` están sincronizadas.
+
+En local se crea un puntero `origin/master` que representa la rama `master` remota.Aunque no necesariamente esta sincronizada con `origin master` ya que otros programadores han podido ir añadiendo commits a `origin master` en remoto.
+
+`git push -u origin master`
