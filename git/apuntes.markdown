@@ -233,3 +233,41 @@ En local se crea un puntero `origin/master` que representa la rama `master` remo
 `git push -u origin master`
 
 Para sincronizar local y remoto se usará `git push`. Las ramas se pushearán de forma independiente.
+
+
+####GIT CLONE
+
+`git clone <urlDelRepositorio>` Clona un repositorio remoto en local. Si no se especifica nada mas se creará una carpeta con el mismo nombre del repositorio. Se trae todos los commit y las ramas del repositorio remoto y además crea una rama `master` que hace segimiento del `master remoto`. Se trae todas las ramas remotas pero solo crea en local la rama `master` las demas se irán creando según se hagan `checkout` a esas ramas. Además se crea un puntero `origin/head` que indica que en remoto la rama principal es la rama `master`.
+
+![diagrama12](Diagrama12.png)
+
+
+`git clone <urlDelRepositorio> <nombreDeLaCarpeta>` Si se especifica el segundo argumento del `git clone` se clonará en una carpeta con el nombre especificado.
+
+#### GIT FETCH
+
+`git fetch` se traae todos los commits del repositorio remoto y mueve los punteros origin/* , luego habria que hacer un `merge` para integrarlo con tu rama local. Esto es tan habitual que `git pull` es el congunto de esa dos acciones.
+
+#### GIT PULL
+
+`git pull` Se trae todos los commits del remoto y los integra con tu rama local. Por defecto hace un merge pero con `git pull --rebase` hace un rebase después del fetch.
+
+
+## GITHUB
+
+__Metodología de programación propuesta por Github__ _**(Flujo de trabajo)**_.
+
+[Flujo de trabajo]: [https://guides.github.com/introduction/flow/]
+
+![flow](flow.png)
+
+__Para una nueva funcionalidad__
+
++ Creamos una nueva rama `git checkout <rama>`.
++ Desarrollamos la funcionalidad _(Añade commits a la rama)_.
++ Abre una pull request:
+  + `git push -u origin <rama>`
+  + Desde la pagína de github pulsas en el boton crear pull request que te sugiere github
+  + Defines el mensaje de la pull request.
+  + Mas abajo pulsa el boton create pull request
+  + En la pestaña pull requests > conversation pueden hablar la personas que han creado la PR y los que tienen que aceptarla
