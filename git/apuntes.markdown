@@ -272,3 +272,4 @@ __Para una nueva funcionalidad__
   + Mas abajo pulsa el boton create pull request
   + En la pestaña pull requests > conversation pueden hablar la personas que han creado la PR y los que tienen que aceptarla
   + Pulsa merge pull request para finalizar.
+  + Se aconseja borrar la rama porque ya no hace falta.
