@@ -271,3 +271,4 @@ __Para una nueva funcionalidad__
   + Defines el mensaje de la pull request.
   + Mas abajo pulsa el boton create pull request
   + En la pestaña pull requests > conversation pueden hablar la personas que han creado la PR y los que tienen que aceptarla
+  + Pulsa merge pull request para finalizar.
