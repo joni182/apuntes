@@ -269,7 +269,20 @@ __Para una nueva funcionalidad__
   + `git push -u origin <rama>`
   + Desde la pagína de github pulsas en el boton crear pull request que te sugiere github
   + Defines el mensaje de la pull request.
+
+  ![imagen](image1.png)
+
   + Mas abajo pulsa el boton create pull request
+
+  ![imagen](image2.png)
+
   + En la pestaña pull requests > conversation pueden hablar la personas que han creado la PR y los que tienen que aceptarla
   + Pulsa merge pull request para finalizar.
+
+  ![imagen](image8.png)
+
   + Se aconseja borrar la rama porque ya no hace falta.
+
+  ![imagen](image5.png)
+
+  + Una vez borrada la rama remota se debe borrar el puntero local que representa a la rama remota. Eso se hace con `git remote prune`
