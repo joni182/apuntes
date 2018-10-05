@@ -113,7 +113,7 @@ __Interprete__
 
     $argv` contiene los parámetros
 
-    ###Tipos de variables
+    ###[Tipos de Datos](http://php.net/manual/es/language.types.php)
     #### Tipos primitivos
 
     __Tipos escalares__
@@ -130,29 +130,25 @@ __Interprete__
 
     No existen las divisiones enteras como en Java
 
-    ```PHP
-    <?php
+```PHP
     var_dump(25/7);         // float(3.5714285714286)
     var_dump((int) (25/7)); // int(3)
     var_dump(round(25/7));  // float(4)
-    ?>
-    ```
+```
 
 
     __Reales__
 
     `float` o `double`
 
-    ```PHP
-    <?php
+```PHP
     $a = 1.234;
     $b = 1.2e3;
     $c = 7E-10;
-    ?>
-    ```
+```
 
-    ###Advertencia
-    ####Precisión del punto flotante ([Extracto de la guia de PHP](http://php.net/manual/es/language.types.float.php))
+###Advertencia
+####Precisión del punto flotante ([Extracto de la guia de PHP](http://php.net/manual/es/language.types.float.php))
 
 >Los números de punto flotante tienen una precisión limitada. Aunque depende del sistema, PHP típicamente utiliza el formato de doble precisión IEEE 754, el cual dará un error relativo máximo por aproximación del orden de 1.11e-16. Las operaciones aritméticas elementales no podrán generar grandes errores y, por supuesto, se han de considrar los errores por propagación al componer varias operaciones.
 
@@ -162,18 +158,131 @@ __Interprete__
 
 
 
-    y
-    string
 
-    __Tipos compuestos__
+  [__string__](http://php.net/manual/es/language.types.string.php)
+
+  >Un string, o cadena, es una serie de caracteres donde cada carácter es lo
+  mismo que un byte. Esto significa que PHP solo admite un conjunto de 256
+  caracteres, y de ahí que no ofrezca soporte nativo para Unicode. Véanse los
+  detalles del tipo string.
+
+  Existen 4 sintaxis para crear una cadena.
+
+  __Entrecomillado simple__
+
+  `'Esto es un string'`. No reconoce las secuencias de escape escepto `\'` y no se expanden las variables.
+
+  __Entrecomillado doble__
+
+  `"Esto es un string"` Sí acepta secuencias de escape y se expanden variables.
+
+  Cuando hay ambigüedad se puede encapsular con `{}`
+
+Veamos el siguiente caso ambiguo
+
+```php
+$x = 25
+"X vale $x a" # aquí no seria ambiguo
+"X vale $xa " # esto es ambiguo ya que el interprete va a intentar expandir la variable $xa que no existe
+
+"X vale {$x}a" # así evitamos la ambigüedad
+```
+
+  __Sintaxis heredoc__
+
+    Es como las comillas dobles pero se usa para varias lineas. conserva espacios, salto de lineas etc. Además se expanden las variables.
+
+```PHP
+$c = <<<EOT
+    if ($x==1){
+      echo 'Hola'
+    }
+EOT;
+```
+
+  __sintaxis nowdoc__
+
+Es al heredoc lo que las comillas simples a las comillas dobles.
+
+__Tipos compuestos__
+
+```PHP
+$c = <<<'EOT'
+    if ($x==1){
+      echo 'Hola'
+    }
+EOT;
+```
+
+__Operaciones con cadenas__
+
+Concatenación se lleva acabo a través del operador punto `.`
+
+`'¡Hola ' . 'Mundo!'` => `'¡Hola Mundo!'`
+
+A las letras de la cadena se puede acceder mediante sus posiciones, como si fuese un array. Además se pueden reemplazar letras. Aunque no soporta UTF-8.
+
+__[Funciones de cadena](http://php.net/ref.strings)__
+
+`ltrim("   hola   ")`   Quita los espacios de la izquierda
+
+`rtrim("   hola   ")`   Quita los espacios de la derecha
+
+`trim("   hola   ")`   Quita los espacios a izquierda y derecha
+
+`strpos("Desarrollo web de entorno servidor", "entorno")` => `18` Encuentra lo primera ocurrencia de entorno y devuelve `false` si no lo encuentra
+
+`chr(88)`   Te devuelve el caracter a partir de su código ASCII
+
+`ord('e')`  Te devuelve el código ASCII del carácter.
+
+`strlen('hola')`  Te devuelve la longuitud de la cadena
+
+__mb_string__
+
+Es un paquete que contiene muchas de las funciones de manipulación de cadena pero teniendo en cuenta los caracteres multibyte
+
+Tienen el mismo nombre que las normales pero empezando con mb_ `strlen(adiós)` => `mb_strlen(adiós)`
+
+`mb_substr("adiós", 3, 1)` devuelve `ó`
+
+____
+
+__Tipos especiales__
+
+resource y NULL
+
+__null__
+
+Representa la ausencia de valor en una variable.
+
+Se puede asignar:
+
+`$coche = null`
+
+__Comprobación de tipos__
+
+`gettype($x)` Devuelve el tipo del dato que contiene $x
+
+__is...__
+
+`is_string($x)` Devuelve `true` si es `$x` es de tipo `string`
+
+`is_string($x)`
+
+`is_int($x)`
+
+`is_bool($x)`
+
+`is_float($x)`
+
+`in_numeric($x)` Devuelve `true` si es un número o una cadena con forma de número
+
+__ctype*__
+
+
 
     array,
     object,
     callable y
     iterable   
-
-
-
-    __Tipos especiales__
-
-    resource y NULL

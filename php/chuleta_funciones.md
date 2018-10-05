@@ -14,10 +14,10 @@
 
 `strpos("Desarrollo web de entorno servidor", "entorno")` => `18` Encuentra lo primera ocurrencia de entorno y devuelve `false` si no lo encuentra
 
-`chr(88)`   Te devuelve el carácter a partir de su código ASCII
+`chr(88)`   Te devuelve el caracter a partir de su código ASCII
 
 `ord('e')`  Te devuelve el código ASCII del carácter
 
-`strlen('hola')`  Te devuelve la longitud de la cadena
+`strlen('hola')`  Te devuelve la longuitud de la cadena
 
 `mb_substr("adiós", 3, 1)` devuelve `ó`
