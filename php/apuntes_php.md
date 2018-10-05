@@ -280,7 +280,11 @@ __is...__
 
 __ctype*__
 
+`ctype_digit()` Comprueba si todos los caracteres de una cadena son dígitos
 
+Existen muchos ctype_* :
+ctype_alnum  ctype_cntrl  ctype_graph  ctype_print  ctype_space  ctype_xdigit
+ctype_alpha  ctype_digit  ctype_lower  ctype_punct  ctype_upper 
 
     array,
     object,
