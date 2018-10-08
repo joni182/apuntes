@@ -276,7 +276,7 @@ __is...__
 
 `is_float($x)`
 
-`in_numeric($x)` Devuelve `true` si es un número o una cadena con forma de número
+`in_numeric($x)` _(Más interesante que los anteriores)_ Devuelve `true` si es un número o una cadena con forma de número
 
 __ctype*__
 
@@ -284,9 +284,228 @@ __ctype*__
 
 Existen muchos ctype_* :
 ctype_alnum  ctype_cntrl  ctype_graph  ctype_print  ctype_space  ctype_xdigit
-ctype_alpha  ctype_digit  ctype_lower  ctype_punct  ctype_upper 
+ctype_alpha  ctype_digit  ctype_lower  ctype_punct  ctype_upper
 
-    array,
-    object,
-    callable y
-    iterable   
+__Conversiones de tipo__
+
+Castin implicito:
+
+(tipo) $x => Valor casteado. `(string) 25` => `"25"`
+
+`(int) "hola"` => `0` + Error
+
+`(int) "25hola"` => `25`
+
+Funciones _tipo_ val()
+
+`intval(..)`  Devuelve el valor casteado a entero
+
+`floatval(..)`  Devuelve el valor casteado a real
+
+`strval(..)`  Devuelve el valor casteado a cadena
+
+`boolval(..)` Devuelve el valor casteado a boleano
+
+__Conversión a De cadena a número__
+
+```PHP
+  $foo = 1 + "10.5";                   // $foo es float (11.5)
+  $foo = 1 + "-1.3e3";                 // $foo es float (-1299)
+  $foo = 1 + "bob-1.3e3";              // $foo es integer (1)
+  $foo = 1 + "bob3";                   // $foo es integer (1)
+  $foo = 1 + "10 pequeños cerdos";     // $foo es integer (11)
+  $foo = 4 + "10.2 pequeños cerditos"; // $foo es float (14.2)
+  $foo = "10.0 cerdos " + 1;           // $foo es float (11)
+  $foo = "10.0 cerdos " + 1.0;         // $foo es float (11)
+```
+__De string a bool__
+
+`""` => `false`
+
+`"0"` => `false`
+
+`"Resto de cadenas"` => `true`
+
+`$a == $b`	_Igual_	TRUE si $a es igual a $b después de la manipulación de tipos.
+
+`$a === $b`	_Idéntico_	TRUE si $a es igual a $b, y son del mismo tipo.
+
+`$a != $b`	_Diferente_	TRUE si $a no es igual a $b después de la manipulación de tipos.
+
+`$a <> $b`	_Diferente_	TRUE si $a no es igual a $b después de la manipulación de tipos.
+
+`$a !== $b`	_No idéntico_	TRUE si $a no es igual a $b, o si no son del mismo tipo.
+
+`$a < $b`	_Menor que_	TRUE si $a es estrictamente menor que $b.
+
+`$a > $b`	_Mayor que_	TRUE si $a es estrictamente mayor que $b.
+
+`$a <= $b`	_Menor o igual_ que	TRUE si $a es menor o igual que $b.
+
+`$a >= $b`	_Mayor o igual_ que	TRUE si $a es mayor o igual que $b.
+
+`$a <=> $b`	_Nave espacial_	Un integer menor que, igual a, o mayor que cero cuando $a es respectivamente menor que, igual a, o mayor que $b. Disponible a partir de PHP 7.
+
+`$a ?? $b ?? $c`	_Fusión de null_	El primer operando de izquierda a derecha que exista y no sea NULL. NULL si no hay valores definidos y no son NULL. Disponible a partir de PHP 7.
+
+`$a ?: $b` _Operador Elvis_ Evalua `a` si si es `true` devuelve `$a` y si no pues devuelve $b
+
+__Constantes__
+
+`define('HOLA', 75)`  Se crea la constante HOLA con el valor 75. Se aconseja que se elija un nombre en mayúsculas.
+
+`const HOLA = 75`     Se crea la constante HOLA con el valor 75. Esta sintaxis permite crear constantes de clase y constantes que contengan arrays.
+
+Una constante no se pueden cambiar. Empiezan a existir cuando se crean hasta el final del fichero.
+
+Con `defined('nombreDeLaConstante')`  Devuelve `true` si existe la constante.
+
+__Constantes predefinidas(Mágicas)__
+
+`__LINE__`	El número de línea actual en el fichero.
+
+`__FILE__`	Ruta completa y nombre del fichero con enlaces simbólicos resueltos. Si se usa dentro de un include, devolverá el nombre del fichero incluido.
+
+`__DIR__`	Directorio del fichero. Si se utiliza dentro de un include, devolverá el directorio del fichero incluído. Esta constante es igual que `dirname(__FILE__)`. El nombre del directorio no lleva la barra final a no ser que esté en el directorio root.
+
+`__FUNCTION__`	Nombre de la función.
+
+
+
+`__CLASS__`	Nombre de la clase. El nombre de la clase incluye el namespace declarado en (p.e.j. Foo\Bar). Tenga en cuenta que a partir de PHP 5.4 `__CLASS__` también funciona con traits. Cuando es usado en un método trait, `__CLASS__` es el nombre de la clase del trait que está siendo utilizado.
+
+
+
+`__TRAIT__`	El nombre del trait. El nombre del trait incluye el espacio de nombres en el que fue declarado (p.e.j. Foo\Bar).
+
+`__METHOD__`	Nombre del método de la clase.
+
+`__NAMESPACE__`	Nombre del espacio de nombres actual.
+
+`ClassName::class`	El nombre de clase completamente cualificado. Véase también ::class.
+
+###[Estructuras de control](http://php.net/manual/es/language.control-structures.php)
+
+__if__
+
+```PHP
+  if ($a > $b) {
+    echo "a es mayor que b";
+  } else {
+    echo "a NO es mayor que b";
+  }
+```
+
+__else if/elsif__
+
+
+```PHP
+/* Método incorrecto: */
+  if ($a > $b):
+      echo $a." es mayor que ".$b;
+  else if ($a == $b): // No compilará
+      echo "La línea anterior provoca un error del interprete.";
+  endif;
+
+
+  /* Método correcto: */
+  if ($a > $b):
+      echo $a." es mayor que ".$b;
+  elseif ($a == $b): // Tenga en cuenta la combinación de las palabras.
+      echo $a." igual ".$b;
+  else:
+      echo $a." no es ni mayor ni igual a ".$b;
+  endif;
+```
+
+__switch__
+
+```PHP
+  switch ($i) {
+      case 0:
+          echo "i es igual a 0";
+          break;
+      case 1:
+          echo "i es igual a 1";
+          break;
+      case 2:
+          echo "i es igual a 2";
+          break;
+  }
+```
+__while__
+
+```PHP
+  $i = 1;
+  while ($i <= 10) {
+      echo $i++;  /* el valor presentado sería
+                     $i antes del incremento
+                     (post-incremento) */
+  }
+```
+__for__
+
+```PHP
+  for ($i = 1; $i <= 10; $i++) {
+      echo $i;
+  }
+```
+
+__Sintaxis alternativa(Mejor para embeber código en plantillas)__
+
+
+__if__
+
+```PHP
+  if ($a > $b):
+    echo "a es mayor que b";
+  else:
+    echo "a NO es mayor que b";
+  endif;
+```
+
+__elseif__
+
+__if__
+
+```PHP
+  if ($a > $b):
+    echo "a es mayor que b";
+  elseif ($a == $b):
+    echo "a es igual que b";
+  else:
+    echo "a NO es mayor que b";
+  endif;
+```
+__switch__
+
+```PHP
+  switch ($i):
+      case 0:
+          echo "i es igual a 0";
+          break;
+      case 1:
+          echo "i es igual a 1";
+          break;
+      case 2:
+          echo "i es igual a 2";
+          break;
+  endswitch;
+```
+__while__
+
+```PHP
+  $i = 1;
+  while ($i <= 10):
+      echo $i++;  /* el valor presentado sería
+                     $i antes del incremento
+                     (post-incremento) */
+  endwhile;
+```
+__for__
+
+```PHP
+  for ($i = 1; $i <= 10; $i++):
+      echo $i;
+  endfor;
+```
