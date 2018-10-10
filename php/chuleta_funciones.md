@@ -14,10 +14,38 @@
 
 `strpos("Desarrollo web de entorno servidor", "entorno")` => `18` Encuentra lo primera ocurrencia de entorno y devuelve `false` si no lo encuentra
 
-`chr(88)`   Te devuelve el caracter a partir de su código ASCII
+`chr(88)`   Te devuelve el carácter a partir de su código ASCII
 
 `ord('e')`  Te devuelve el código ASCII del carácter
 
-`strlen('hola')`  Te devuelve la longuitud de la cadena
+`strlen('hola')`  Te devuelve la longitud de la cadena
 
 `mb_substr("adiós", 3, 1)` devuelve `ó`
+
+##Arrays
+
+`count($a)` Devuelve el tamaño del array
+
+`array_sum($a)` Devuelve la suma de los elementos del array que se le pasa
+
+`range(1, 5)` Devuelve un array con los números del 1 al 5 `[1, 2, 3, 4, 5]`
+
+`sort($a)` Ordena el array por por valor y pierde las claves
+
+`asort($a)` Ordena el array por por valor y __NO__ pierde las claves
+
+`ksort($a)` Ordena el array por clave
+
+`krsort($a)` Ordena el array por clave de forma inversa
+
+`array_keys($a)` Devuelve un array solo con las claves
+
+`array_values($a)`Devuelve un array solo con los valores
+
+`array_combine($a, $b)` Devuelve la combinación de dos arrays uasndo una como clave y otra como valor
+
+`in_array('aguja', $pajar)` Busca la aguja en el pajar
+
+`array_key_exists('clave', $array)` Mira si existe la clave en un array
+
+`array_merge($a[,$b])` Une dos arrays, si ubiera elementos con la misma clave numérica las claves del segundo array se cambian, para que no haya conflico y si son cadena se sobreescribe, teniendo preferenciadel segundo array `$b`

@@ -512,6 +512,68 @@ __for__
 
 ###Arrays
 
+En php los arrays son en realidad mapas, una estructura de clave => valor, la clave puede ser de distintos tipos y nunca se puede repetir.
+
+Formas de declarar un array.
+
 `$a = array(12, 22, 32)`
 
 `$a = [12, 22, 32]`
+
+`$a = [0 => 12, 1 => 22, 2 => 32]`
+
+`$a[0] = 12; $a[1] = 22; $a[2] = 32;`
+
+`$a`  =>  `[
+     0 => 12,
+     1 => 22,
+     2 => 32,
+     12 => 82,
+   ]
+`  Se pueden decalrar posiciones no correlativas
+
+`$a = ["gato" => "cat"]`  La clave puede ser de distintos tipos y nunca se puede repetir.
+
+`$a[] = "valor"` Lo añade en la última posicion con y para la clave se mirará la clave numérica más alta y le sumara uno, en ausencia dde clave numerica  le asignará un cero.
+
+`unset($a['clave'])` Elimina la clave y el valor asociado a esa clave.
+
+__Operaciones con arrays__
+
+`['a', 'b', 'c'] + [2 => 'd', 3 => 'f']  ----> 'a', 'b', 'c', 'f']`  Con la suma de arrays se devuelve la suma el array de la derecha a la de la izquierda. Si hay conflictos con la clave gana el de la izquierda.
+
+Dos arrays  son iguales si tienen los mismos elementos (claves/valor) sin importar su posicion. Con `==` no tiene en cuenta el tipo de forma estricta `['', 1, 2] == [false, 1, 2] -----> true`, `['', 1, 2] === [false, 1, 2] -----> false`
+
+__Recorrer arrays__
+
+__foreach__
+
+Para recorre elementos traversables como arrays, objetos ..
+
+sintaxis
+```PHP
+foreach ($a as $k => $v){
+  echo "$k es la clave y $v es el valor.";
+}
+```
+
+En caso de no querer usar las claves hay una _forma simplificada_
+
+```PHP
+foreach ($a as $v){
+  echo "$v es el valor.";
+}
+```
+
+_Script de ejemplo_
+
+```PHP
+unset($argv[0]);
+foreach ($argv as $v){
+  echo "Hola $v!\n";
+}
+```
+
+###Funciones definidas por el usuario
+
+`function hola(){}`
