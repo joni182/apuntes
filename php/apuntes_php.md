@@ -576,4 +576,4 @@ foreach ($argv as $v){
 
 ###Funciones definidas por el usuario
 
-`function hola(){}`
+`function hola($parametro){}` Los parámetros se pasan por valor, así que si dentro de la función se modifica el parámetro no afecta a la variable externa a la función. En caso de querer pasar un parámetro por referencia se usa `&` antes de la variable `&$variable`
