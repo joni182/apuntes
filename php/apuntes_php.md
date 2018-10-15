@@ -1,5 +1,7 @@
 # PHP
 
+com
+
 [Guia oficial en español](http://php.net/manual/es/)
 
 
@@ -577,3 +579,177 @@ foreach ($argv as $v){
 ###Funciones definidas por el usuario
 
 `function hola($parametro){}` Los parámetros se pasan por valor, así que si dentro de la función se modifica el parámetro no afecta a la variable externa a la función. En caso de querer pasar un parámetro por referencia se usa `&` antes de la variable `&$variable`
+
+  __Argumentos por defecto__
+
+Se pueden definir argumentos por defecto, en el ejmplo de abajo si se le pasan los dos argumentos devolverá la suma de los dos argumentos, pero si no se le pasa el argumento `$b` tomará el valor `5`, que es el que hemos especificado por defecto.
+
+  ```php
+  function suma($a, $b = 5)
+  {
+    return $a + $b;
+  }
+  ```
+Si ponemos argumentos con valores por defecto estos deben estar al final de la lista de parámetros.
+
+Se puede usar como valor por defecto se puede usar cualquier expresión constante, como una variable constante o una función constante.
+
+Se pueden declarar los tipos de los argumentos y lo que devuelve la función, aunque el interprete hace una conversión implícita, de forma que puedes pasarle una cadena que se pueda convertir a entero.
+
+```php
+function suma(int $a, int $b = 5): int
+{
+  return $a + $b;
+}
+```
+
+Además, cuando se tipa los parametros el null no se castea si no que dar un error. Para que admita nulos hay que poner `?` delante del tipo. Se convierte en un tipo nullable.
+
+
+```php
+function suma(?int $a, ?int $b = 5): ?int
+{
+  return $a + $b;
+}
+```
+
+__Tipo void__
+
+Se puede usar el tipo `void` para especificar que la fn no devuelve nada. Una funcion devuelve `void` realmente devuelve un `null`
+
+```php
+function suma(?int $a, ?int $b = 5): void
+{
+  echo $a + $b;
+  return;
+}
+```
+
+__Tipado estricto__
+
+No permite el casteado de tipos en argumentos y devoluciones de fn. Se activa en el fichero donde esta la llamada a la fn. Existe una excepción, cuando espera un `float` y se le pasa un `int`
+
+___Definición de la función:___
+```php
+function suma(?int $a, ?int $b = 5): ?int
+{
+  return $a + $b;
+}
+```
+___Llamada a la función___
+
+```php
+declare(strict_type=1);
+
+suma(4, 8);
+```
+
+###Ámbitos
+
+ + ámbitos
+    + "Global": Definidas a nivel de fichero. Desde el momento que se les da un valor hasta el final del fichero. No son visibles desde dentro de las funciones a menso que lo especifiques en la función con `global $var`.
+    ```php
+          $x = 5;
+
+          function suma($a)
+          {
+            global $x;
+            return $a + $x;
+          }
+    ```
+    + Locales: Se definen dentro de una función. Solo existen dentro de una función y dejan de existir fuera.
+    + [Superglobales](http://php.net/manual/es/language.variables.superglobals.php): Son variables autodefinidas y que se pueden usar en cualquier ambito.
+
+      + `$GLOBALS`
+      + `$_SERVER`
+      + `$_GET`
+      + `$_POST`
+      + `$_FILES`
+      + `$_COOKIE`
+      + `$_SESSION`
+      + `$_REQUEST`
+      + `$_ENV`
+
+
+###Instalacion Docblockr
+
+Docblockr ayuda a documentar tu código agregando delante de cada función un comentario pon información util para documentar el código.
+
+En Atom pulsmas `ctrl+,`, vamos a  `install` y en le buscador pulsamos `docblockr` y pulsamos en instalar.
+
+__Para usarlo__
+
+En la linea antes de una función ponemos `/**` y luego `intro` y automaticamente se debe de autocompletar el el comentario con huecos para rellenar.
+
+```PHP
+    /**
+     * Se le pasa un nombre y devuelve un saludo con el nombre que se le pasa
+     * @param  string $nombre Nombre para saluar
+     * @return string         Devuelve un saludo con el nombre que se le pasa
+     */
+    function saluda(string $nombre): string
+    {
+      return "Hola $nombre";
+    }
+```
+### Contextos de Php
+__SAPI(Server Api)__
+
+Define el contexto de ejecución del PHP. En que ambiente se ejecuta el interprete.
+
++ __SAPI__
+  + __CLI__ (_Linea de comandos_): Existen `$argc` y `$argv`, se pueden leer de la entrada estándar (`stdin`) y volcar a las salida estadar (`stdout`)
+
+  + __CGI__ (Common Getaway Interface): Para que se comunique con el servidor mediante CGI, existe una opcion moderna , el FastCGI(FPM). De esta manera se tienen el apache y el php como dos procesos independientes y que se comunican por FastCGI.
+
+  + __Apache__: El interprete se ejecuta como un módulo de apache. Es el que vamos a usar en DWESE.
+
+
+  __Modulos apache__
+
+  Los modulos disponibles de apache se encuentran en `/etc/apache2/mods-availables`.
+
+  Para activar un modulo `sudo a2enmod <modulo>` y para desactivarlos `sudo a2dismod <modulo>`
+
+  El documentRoot, que es la carpeta raiz del servidor, del apache se define en `/etc/apache2/sites-enables/000-default.conf`
+
+  El documentRoot se encuentra por defecto en `/var/www/html`
+
+  _ejemplo_
+
+  Dentro de `/var/www/html` creamos un un documento `pepito.php`
+
+  con el siguiente contenido:
+
+```PHP
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pepito</title>
+  </head>
+  <body>
+    <?php echo 'Hola pepito' ?>
+  </body>
+</html>
+```
+Al entrar desde el navegador en la url `localhost/pepito.php` Deberá verse en la pantalla `Hola pepito`
+
+Lo que ocurre es que al pedilrle al servidor `pepito.php` el interprete ha mandado a la salida todo el codigo html sin interpretarlo, y lo que esta ente `<?php` y `?>` lo interpreta y lo vuelca a la salida.
+
+Osea el interprete entra en el documento en modo HTML, va volcando a la salida todo lo que va leyendo sin interpretar, cuando se encuentra un `<?php` interpreta el codigo php y vuelca a la salida `Hola pepito` , cuando se encuentra con `?>` vuelve al modo html y termina de volcar a la salida todo lo que queda.
+
+ De forma que al navegador le llega lo siguiente:
+
+  ```PHP
+  <!DOCTYPE html>
+  <html lang="en" dir="ltr">
+    <head>
+      <meta charset="utf-8">
+      <title>Pepito</title>
+    </head>
+    <body>
+    Hola pepito
+    </body>
+  </html>
+  ```
