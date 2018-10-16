@@ -15,7 +15,7 @@
         <th>m</th>
       </thead>
       <tbody>
-        <?php for ($i=0; $i < ; $i++):?>
+        <?php for ($i=0; $i <= 10 ; $i++):?>
           <tr>
             <td><?= $numero  ?></td>
             <td>x</td>
