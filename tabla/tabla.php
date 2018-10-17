@@ -6,7 +6,7 @@
   </head>
   <body>
     <?php
-    require './auxiliar.php'
+    require './auxiliar.php';
       if (!isset($_GET['num'])){
          mostrarError("Error: falta el parámetro num");
       } else {
