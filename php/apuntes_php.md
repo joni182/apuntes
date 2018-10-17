@@ -753,3 +753,16 @@ Osea el interprete entra en el documento en modo HTML, va volcando a la salida t
     </body>
   </html>
   ```
+
+
+__Arrancar servidor integrado de php__
+
+`php -S localhost:8000` Inicia el servidor integrado de php. El documentRoot del servidor será desde donde se ejecute  el comando.
+
+__Recoger parámetros por GET y POST (`$_GET, $_POST`)__
+
+`$_GET` Es una array que contiene la información enviada por get. Se accede colocando como clave el nombre que se le ha dado al parámetro enviado por get. Ejemplo:
+
+__Petición__ `localhost:8000/tabla.php?num=6`
+
+__Acceso__ `$_GET['num']`
