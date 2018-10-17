@@ -33,7 +33,7 @@
       }
       function mostrarError($mensaje)
       {
-        echo "<h3 style=color: #936;>$mensaje</h3>";
+        echo "<h3 style='color: #936;'>$mensaje</h3>";
       }
 
       if (!isset($_GET['num'])){
