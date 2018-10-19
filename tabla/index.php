@@ -15,7 +15,7 @@
       if (isset($_GET['num'])){
         $numero = $_GET['num'];
         if (!ctype_digit($numero)){
-           mostrarError('Error: se ha pasado algo que no es un número');
+           mostrarError('Error: Se ha pasado algo que no es un número');
         } else {
           mostrarTabla($numero);
         }
