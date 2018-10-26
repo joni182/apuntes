@@ -754,7 +754,6 @@ Osea el interprete entra en el documento en modo HTML, va volcando a la salida t
   </html>
   ```
 
-
 __Arrancar servidor integrado de php__
 
 `php -S localhost:8000` Inicia el servidor integrado de php. El documentRoot del servidor será desde donde se ejecute  el comando.
@@ -766,3 +765,164 @@ __Recoger parámetros por GET y POST (`$_GET, $_POST`)__
 __Petición__ `localhost:8000/tabla.php?num=6`
 
 __Acceso__ `$_GET['num']`
+
+
+##Objetos
+
+`$a = new Algo()` La variable `$a` apunta por referencia al objeto.
+
+`$b = $a` Ahora `$b` apunta al mismo objeto, en caso de `$a = new OtraCosa()` cada variable apuntará a objetos diferentes.
+
+`$b =& $a` Ahora `$a` y `$b` comparten el puntero que apunta a un abjeto, de qforma que si `$a = new cosilla()` las dos variables apuntan conjuntamente a un objeto de la clase `Cosilla`.
+
+`$a = new Algo(); $b = clone $a` Ahora cada variable apuntan a dos objetos diferentes.
+
+`Clase::CONSTANTE` Con el operador doble dos puntos `::` se pueden llamar a costantes y métodos de clase.
+
+## Clase DateTime
+
+`$a = new DateTime` Devuelve un objeto que contiene un instante de tiempo actual en UTC.
+
+`$a->getTimestamp()` Devuelve el instante de tiempo, en formatos segundos a partir de la medianoche de 1/1/1970
+
+`$a->getTimezone()` Devuelve un objeto del tipo `DateTimeZone`
+
+`$a->setTime($hora, $minutos, $segundos)` Redefine el instante que contiene el objeto.
+
+`$a->diff($b)` Siendo `$b` un objeto de `DateTime` devuelve un intervalo de tiempo de la clase `DateInterval` Es como restar a `$b` - `$a`
+
+
+## Exepciones y errores
+
+Cuando hay una situación anómala del programa se lanza una excepción, una vez se lanza va subiendo por la pila de llamadas y si nada la captura causa el fin de la ejecución del programa.
+
+Pueden ser lanzadas por el propio programa o por algo externo a ella.
+
++ errores
+
+    + error
+    + notice
+    + warning
+    + etc
+
++ exception (Clase lanzable)
+
++ error (Clase lanzable)
+
+    + TypeError
+
+        + ArgumentCountError
+
+    + ArithmeticError
+
+        + DivisionByZeroError
+
++ CompileError
+
+
+Capturar Excepciones
+```php
+    try {
+
+    } catch (Exception $e) {
+        echo $e->getMessage()
+    }
+
+```
+
+Capturar Errores
+```php
+    try {
+
+    } catch (Error $e) {
+        echo $e->getMessage()
+    }
+
+```
+
+Capturar Excepciones y Errores
+```php
+    try {
+
+    } catch (Exception|Error $e) {
+        echo $e->getMessage()
+    }
+
+```
+
+Capturar lanzable
+```php
+    try {
+
+    } catch (Trowable $e) {
+        echo $e->getMessage()
+    }
+
+```
+
+##  Conectarse a una base de Datos
+
+Desde PHP se puede instanciar un objeto de la clase `PDO` para manejar la conexión a la base de datos.
+
+`$pdo = new PDO("tipoDb:host=localhost;port=5432;dbname=nombreDB",'usuario','contraseña');`
+
+ejemplo_
+
+`$pdo = new PDO("pgsql:host=localhost;dbname=fa",'fa','fa');`
+
+### Hacer una consulta
+
+`$pdo = new PDO("pgsql:host=localhost;dbname=fa",'fa','fa');`
+
+Creamos una sentencia
+
+`$st = $pdo->query('SELECT * FROM GENEROS');` dentro de `$st` se crea un objeto de la clase `PDOStatement` que contiene el resultado, en este momento la sentencia ya se ejecutado. En caso de error devuelve `false`.
+
+`$res = $st->fetchAll();` En `$res` se vuelca un array que contiene un elemento por cada fila. Ese elemento es un array.
+
+```PHP
+
+[
+    [
+      "id" => 1,
+      0 => 1,
+      "genero" => "Comedia",
+      1 => "Comedia",
+    ],
+    [
+      "id" => 2,
+      0 => 2,
+      "genero" => "Terror",
+      1 => "Terror",
+    ],
+    [
+      "id" => 3,
+      0 => 3,
+      "genero" => "Ciencia-Ficción",
+      1 => "Ciencia-Ficción",
+    ],
+    [
+      "id" => 4,
+      0 => 4,
+      "genero" => "Drama",
+      1 => "Drama",
+    ],
+    [
+      "id" => 5,
+      0 => 5,
+      "genero" => "Aventuras",
+      1 => "Aventuras",
+    ],
+  ]
+
+
+
+```
+
+`$st->fetch()` Delvuelve la siguiente fileatime.
+
+`$st->fetchColumn()` Devuelve la primera columna del resultado.
+
+`$st->rowCount()`   Cuenta el número de filas del resultado.
+
+`$pdo->exec('...')` Es para ejecutar ordenes sql que no devuelvan resultados, casi todas menos la `SELECT`, como el `INSERT`. Devuel el numero de filas afectadas si ha tenido exito, en caso de fallo devuelve falso.
