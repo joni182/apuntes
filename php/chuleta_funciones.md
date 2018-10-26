@@ -49,3 +49,9 @@
 `array_key_exists('clave', $array)` Mira si existe la clave en un array
 
 `array_merge($a[,$b])` Une dos arrays, si ubiera elementos con la misma clave numérica las claves del segundo array se cambian, para que no haya conflico y si son cadena se sobreescribe, teniendo preferenciadel segundo array `$b`
+
+##Extract
+
+La funcion `extract(array $a, EXTR_IF_EXISTS)` crea variables a partir de un array, siendo el nombre de la variable la clave de cada elemento y el valor el valor de la pareja clave valor. Si la variable existe la machaca y si la clave es numérica no crea esa variable.
+
+Pasandole en el segundo argumento la constante `EXTR_IF_EXISTS` se asegura que solo se extraen variables preexistentes.
