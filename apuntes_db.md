@@ -6,7 +6,7 @@
 
 Forkeamos de `https://github.com/iesdonana/filmaffinity`
 
-` git clone http://github.com/tu_usuario/filmaffinity fa`
+` git clone http://github.com/tu_usuario/filmaffinity ~/fa`
 
 `sudo -u postgres psql -d template1`
 
@@ -18,4 +18,4 @@ Dentro del pgsql/template1 `create extension pgcrypto;` , nos salimos con `\q`
 
 `cd ~/fa`
 
-psql -U fa -h localhost -d fa < fa.sql  
+`psql -U fa -h localhost -d fa < fa.sql`

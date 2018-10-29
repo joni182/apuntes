@@ -864,6 +864,8 @@ Capturar lanzable
 
 Desde PHP se puede instanciar un objeto de la clase `PDO` para manejar la conexión a la base de datos.
 
+DSN Data Source Name: `"pgsql:host=localhost;dbname=fa"`
+
 `$pdo = new PDO("tipoDb:host=localhost;port=5432;dbname=nombreDB",'usuario','contraseña');`
 
 ejemplo_
@@ -925,4 +927,21 @@ Creamos una sentencia
 
 `$st->rowCount()`   Cuenta el número de filas del resultado.
 
-`$pdo->exec('...')` Es para ejecutar ordenes sql que no devuelvan resultados, casi todas menos la `SELECT`, como el `INSERT`. Devuel el numero de filas afectadas si ha tenido exito, en caso de fallo devuelve falso.
+`$pdo->exec('...')` Es para ejecutar ordenes sql que no devuelvan resultados, casi todas menos la `SELECT`, como el `INSERT`. Devuelve el numero de filas afectadas si ha tenido exito, en caso de fallo devuelve falso.
+
+___
+
+
+### Tipos de datos SQL -> PHP
+
+__SQL__ ------------  __PHP__
+
+NULL --------> null
+
+nº entero -----> entero
+
+bool -----------> bool
+
+el resto -------> cadenas
+
+___
