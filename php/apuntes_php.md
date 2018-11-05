@@ -980,3 +980,12 @@ bool -----------> bool
 el resto -------> cadenas
 
 ___
+
+
+## Filtrado
+
+- [Filtrado](http://php.net/manual/es/intro.filter.php)
+    - [Validación](http://php.net/manual/es/filter.filters.validate.php)
+    - [Saneado](http://php.net/manual/es/filter.filters.sanitize.php)
+
+[Manual de PHP](http://php.net/manual/es/intro.filter.php)
