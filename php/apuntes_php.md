@@ -931,6 +931,41 @@ Creamos una sentencia
 
 ___
 
+### Sentencias preparadas
+
+#### Marcadores
+
+Se usa cuando hacemos consultas con valores que vienen del exterior
+
+Dentro de la consulta se reserva un ligar donde se va a expandir el valor del marcador. el nombre del marcador debe de ser un identificador valido precedido de dos puntos `:`.
+
+Se prepara la orden con el marcador con el método `->prepare` y luego mediante el método `->execute()` se ejecuta la orden. Devuelve un `bool` según funcione la orden o no.
+
+```php
+# Se realiza la conexión a la base de datos
+$pdo = new PDO('pgsql:host=localhost;dbname=fa','fa','fa');
+
+# Se prepara la orden con el marcador :titulo
+$st = $pdo->prepare("SELECT * FROM peliculas WHERE titulo ILIKE :titulo");
+
+# ->execute recibe un array en el que cada elemento se compone del marcador como clave y el valor extraido del exterior como valor.
+$st->execute([':titulo' => "%$buscarTitulo%"]);
+```
+
+Esta técnica es necesaria para evitar inyecciones de código SQL.
+
+En caso de usar valores internos al programa se puede interpolar las variables directamente en la orden.
+
+```php
+# Se realiza la conexión a la base de datos
+$pdo = new PDO('pgsql:host=localhost;dbname=fa','fa','fa');
+
+$st = $pdo->query("SELECT * FROM peliculas WHERE titulo ILIKE '%$bucarTitulo%'");
+
+```
+
+___
+
 
 ### Tipos de datos SQL -> PHP
 
