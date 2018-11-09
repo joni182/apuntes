@@ -19,3 +19,10 @@ Dentro del pgsql/template1 `create extension pgcrypto;` , nos salimos con `\q`
 `cd ~/fa`
 
 `psql -U fa -h localhost -d fa < fa.sql`
+
+
+## Encryptar
+
+`gen_salt()` Genera la sal aleatoria para el cifrado. Primer parámetro es el tipo de cifrado y el segundo es el coste de cifrado.
+
+`crypt('cadena',gen_salt('bf', 10))` Cifra

@@ -55,3 +55,12 @@
 La funcion `extract(array $a, EXTR_IF_EXISTS)` crea variables a partir de un array, siendo el nombre de la variable la clave de cada elemento y el valor el valor de la pareja clave valor. Si la variable existe la machaca y si la clave es numérica no crea esa variable.
 
 Pasandole en el segundo argumento la constante `EXTR_IF_EXISTS` se asegura que solo se extraen variables preexistentes.
+
+## Cifrado
+
+### Cifrar
+`password_hash($cadena, PASSWORD_DEFAULT[, ['cost' => 10]])` Cifra a una cadena de 60 carácteres.
+
+### Verificar
+
+`password_verify($passwordSinCifrar, $hash)` Devuelve un booleano. `true` si coinciden.
