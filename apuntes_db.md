@@ -14,7 +14,7 @@ Dentro del pgsql/template1 `create extension pgcrypto;` , nos salimos con `\q`
 
 `sudo -u postgres createdb fa`
 
-`sudo -u postgres createuser -P fa ` , a continuación introducimos la contraseña 'fa' dos veces.
+`sudo -u postgres psql createuser -P fa ` , a continuación introducimos la contraseña 'fa' dos veces.
 
 `cd ~/fa`
 
