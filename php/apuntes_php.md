@@ -989,3 +989,47 @@ ___
     - [Saneado](http://php.net/manual/es/filter.filters.sanitize.php)
 
 [Manual de PHP](http://php.net/manual/es/intro.filter.php)
+
+
+# DOO
+
+```
+<?php
+
+class usuario extends persona
+{
+    public const ADMIN = 'admin';
+
+    public $$id;
+    public $login;
+    public $password;
+
+    public function __contruct($id)
+    {
+        require '/comunes/auxiliar.php'
+        $pdo = conectar();
+        $usuario = buscarUsuario($pdo, $id);
+        $this->id = $usuario['id'];
+        $this->login = $usuario['login'];
+        $this->password = $usuario['password'];
+    }
+
+    public function __destruct()
+    {
+        echo 'Se destruye';
+    }
+
+    public function deslogear()
+    {
+        $nombre = $this->login:
+        echo "Ya está deslogueado $nombre";
+    }
+
+    public static function nombreAdmin()
+    {
+        return self::ADMIN; # self hace referencia a la clase actual, ¡ojo! no es equivalente al $this.
+    }
+
+}
+
+```
