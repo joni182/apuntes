@@ -1,6 +1,6 @@
 # PHP
 
-com
+
 
 [Guia oficial en español](http://php.net/manual/es/)
 
@@ -1033,3 +1033,12 @@ class usuario extends persona
 }
 
 ```
+
+- Propiedades
+    - Predeterminadas: Propiedades definidas el la clase.
+    - Dinámicas: Propiedad no definida en la clase que empieza a existir en el momento en el se le asigna un valor. Se puede eliminar con unset().
+
+
+## Enlace estatico en tiempo de ejecución
+
+Se usa usando static en vez de self
