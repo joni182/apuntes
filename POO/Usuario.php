@@ -1,5 +1,7 @@
 <?php
 
+namespace espacio1;
+
 class usuario
 {
     use Saludador;
